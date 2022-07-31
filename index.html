@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      input[type="color"] {
+        height: 200px;
+        width: 200px;
+		margin-top:10%;
+      }
+	  #hexvalue{
+	  font-family: "Times New Roman", Times, serif;
+	  font-size:50px;
+	  }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="stomp.js"></script>
+    <script src="main.js"></script>
+    <title>Hue LED</title>
+  </head>
+  <body>
+    <div>
+      <center>
+        <input type="color" id="color" onchange="sendmessage('m')">
+        <h6 id="hexvalue" style='font-family:'></h6>
+      </center>
+    </div>
+  </body>
+</html>
