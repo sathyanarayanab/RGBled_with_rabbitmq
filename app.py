@@ -3,8 +3,7 @@ from time import sleep
 from flask import Flask, render_template, request
 import os
 import pika
-# import requests
-# import sys
+
 # Converts the hex to RGB value    
 def hex_to_rgb(value):
     value = value.lstrip('#')
