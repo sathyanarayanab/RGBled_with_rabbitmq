@@ -23,3 +23,7 @@ sudo docker exec rabbitmq rabbitmqadmin declare exchange name=logs type=fanout d
 1. Change the WS endpoint in main.js (Line 2)
 2. Change the user credentials as per your configurations in main.js (Line 4)
 3. Change the IP of PI in main.js (Line 27 and 54)
+
+
+https://user-images.githubusercontent.com/83451857/182020507-525f85e8-e6a3-489f-90d0-985db866bb1f.mp4
+
