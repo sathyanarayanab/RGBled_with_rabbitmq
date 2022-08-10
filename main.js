@@ -1,18 +1,9 @@
 function connect(){
 var ws = new WebSocket("ws://192.168.1.2:15674/ws");
 var client = Stomp.over(ws);
-client.connect('guest', 'guest', on_connect, on_error); //Change the default username and password in first and second param
+client.connect('guest2', 'guest2', on_connect, on_error); //Change the default username and password in first and second param (Subscribe only user)
 
-client.debug = function() {}; // Sets the debug function to null to show no debug in console
-
-callback = function(message) {
-    if (message.body) {
-        client.send("/exchange/logs", {
-            'content-type': 'text/plain',
-            'destination': '/exchange/logs'
-        }, "Hello");
-    }
-};
+client.debug = function() {};  // Sets the debug function to null to show no debug in console
 return client;
 }
 
@@ -38,8 +29,8 @@ var on_connect = function() {
 };
 var on_error = function() {
 	console.log('error');
-	client = connect();
-	return client;
+/* 	client = connect();
+	return client; */
 };
 
 function onmessage(m) {
@@ -49,16 +40,12 @@ function onmessage(m) {
 
 }
 
-function sendmessage(m) {
+function updatecolor(m) {
     var VALUE = document.getElementById("color").value.replace("#", '');
     var URL = "http://192.168.1.28:5000/color?set=" + VALUE;
     let apiRequest = new XMLHttpRequest();
     apiRequest.open('GET', URL);
     apiRequest.send();
-    client.send("/exchange/logs", {
-        'content-type': 'text/plain',
-        'destination': '/exchange/logs'
-    }, VALUE);
     document.getElementById("hexvalue").innerHTML = document.getElementById("color").value;
     document.getElementById("hexvalue").style.color = document.getElementById("color").value;
 }

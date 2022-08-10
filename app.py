@@ -3,6 +3,12 @@ from time import sleep
 from flask import Flask, render_template, request
 import os
 import pika
+creds = pika.PlainCredentials("guest","guest") #Pub/SUb user
+connection = pika.BlockingConnection(pika.ConnectionParameters(host='192.168.1.2',credentials=creds))
+channel = connection.channel()
+
+def send_message(color_val):
+    channel.basic_publish(exchange='logs', routing_key='', body=color_val)
 
 # Converts the hex to RGB value    
 def hex_to_rgb(value):
@@ -56,13 +62,14 @@ RED.start(0)
 GREEN.start(0)
 BLUE.start(0)
 
-app = Flask(__name__,template_folder="/home/pi/RGBled_with_sock")
+app = Flask(__name__,template_folder="/home/pi/RGBled_with_rabbitmq")
 @app.route("/color",methods=['GET']) #Receive the color to be set via get param "set"
 def color():
     args = request.args
     args.get("set")
     COLOR[0] = args.get("set")
     value = hex_to_rgb(args.get("set"))
+    send_message(COLOR[0])
     red,green,blue = value
     updateHue(int(red),int(green),int(blue))
     return render_template('index.html')
